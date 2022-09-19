@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyGround;
+    [SerializeField] private GameObject _enemySpawnZone;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private float _spawnInterval;
     [SerializeField] private int _maxCountEnemies;
@@ -20,9 +20,8 @@ public class EnemySpawner : MonoBehaviour
         {
             if (Enemy.Count < _maxCountEnemies)
             {
-                GameObject enemy = Instantiate(_enemyPrefab, Vector3.zero, Quaternion.identity);
-                enemy.transform.SetParent(_enemyGround.transform);
-                enemy.transform.localPosition = GetRandomPoint();
+                GameObject enemy = Instantiate(_enemyPrefab, GetRandomPoint(), Quaternion.identity, _enemySpawnZone.transform);
+                enemy.GetComponent<Enemy>().SetActiveZone(_enemySpawnZone);
             }
 
             _timer = 0;
@@ -32,11 +31,11 @@ public class EnemySpawner : MonoBehaviour
     private Vector3 GetRandomPoint()
     {
         Vector3 resPoint = new Vector3();
-        RectTransform groundRectTransform = _enemyGround.GetComponent<RectTransform>();
+        var bounds = _enemySpawnZone.GetComponent<BoxCollider>().bounds;
         
-        resPoint.x = Random.Range(-groundRectTransform.anchorMin.x, groundRectTransform.anchorMax.x);
-        resPoint.z = Random.Range(-groundRectTransform.anchorMin.y, groundRectTransform.anchorMax.y);
-        resPoint.y = groundRectTransform.position.y;
+        resPoint.x = Random.Range(bounds.min.x, bounds.max.x);
+        resPoint.z = Random.Range(bounds.min.z, bounds.max.z);
+        resPoint.y = _enemySpawnZone.transform.position.y;
         return resPoint;
     }
 }
