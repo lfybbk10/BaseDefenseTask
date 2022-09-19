@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class EnemyZoneTrigger : MonoBehaviour
 {
-    public event Action PlayerEnteredEnemyZone;
-    public event Action PlayerExitEnemyZone;
+    public bool IsPlayerInZone;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerEnteredEnemyZone?.Invoke();
+            IsPlayerInZone = true;
         }
     }
 
@@ -19,7 +18,7 @@ public class EnemyZoneTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerExitEnemyZone?.Invoke();
+            IsPlayerInZone = false;
         }
     }
 }

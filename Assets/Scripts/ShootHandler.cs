@@ -43,6 +43,6 @@ public class ShootHandler : MonoBehaviour
     private void FireBullet(Vector3 enemyPosition)
     {
         var bullet = PoolManager.SpawnObject(_bulletPrefab, _bulletPosition.position, Quaternion.identity);
-        bullet.transform.DOMove(enemyPosition, 1);
+        bullet.GetComponent<Bullet>().Fire(enemyPosition);
     }
 }

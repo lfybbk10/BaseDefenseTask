@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
             if (Enemy.Count < _maxCountEnemies)
             {
                 GameObject enemy = Instantiate(_enemyPrefab, GetRandomPoint(), Quaternion.identity, _enemySpawnZone.transform);
-                enemy.GetComponent<Enemy>().SetActiveZone(_enemySpawnZone);
+                enemy.GetComponent<EnemyMoveHandler>().SetEnemyZoneTrigger(_enemySpawnZone.GetComponent<EnemyZoneTrigger>());
             }
 
             _timer = 0;

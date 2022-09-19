@@ -12,26 +12,6 @@ public class Enemy : MonoBehaviour
         Count++;
     }
 
-    public void SetActiveZone(GameObject activeZone)
-    {
-        _activeZone = activeZone;
-        
-        _activeZone.GetComponent<EnemyZoneTrigger>().PlayerEnteredEnemyZone +=
-            GetComponent<EnemyMoveHandler>().ActivateMovingToPlayer;
-        
-        _activeZone.GetComponent<EnemyZoneTrigger>().PlayerExitEnemyZone +=
-            GetComponent<EnemyMoveHandler>().DeActivateMovingToPlayer;
-    }
-
-    private void OnDisable()
-    {
-        _activeZone.GetComponent<EnemyZoneTrigger>().PlayerEnteredEnemyZone -=
-            GetComponent<EnemyMoveHandler>().ActivateMovingToPlayer;
-        
-        _activeZone.GetComponent<EnemyZoneTrigger>().PlayerExitEnemyZone -=
-            GetComponent<EnemyMoveHandler>().DeActivateMovingToPlayer;
-    }
-
     public void TakeDamage(float damage)
     {
         

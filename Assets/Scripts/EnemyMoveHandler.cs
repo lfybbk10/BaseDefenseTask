@@ -9,8 +9,9 @@ using Random = UnityEngine.Random;
 public class EnemyMoveHandler : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
+
+    private EnemyZoneTrigger _enemyZoneTrigger;
     
-    private bool _isMovingToPlayer;
     private NavMeshAgent _navMeshAgent;
 
     private void Awake()
@@ -20,7 +21,7 @@ public class EnemyMoveHandler : MonoBehaviour
 
     private void Update()
     {
-        if (_isMovingToPlayer)
+        if (_enemyZoneTrigger.IsPlayerInZone)
         {
             _animator.SetBool("Running",true);
             _animator.SetBool("Walking",false);
@@ -60,15 +61,9 @@ public class EnemyMoveHandler : MonoBehaviour
         return hit.position;
     }
 
-
-    public void ActivateMovingToPlayer()
+    public void SetEnemyZoneTrigger(EnemyZoneTrigger trigger)
     {
-        _isMovingToPlayer = true;
-    }
-    
-    public void DeActivateMovingToPlayer()
-    {
-        _isMovingToPlayer = false;
+        _enemyZoneTrigger = trigger;
     }
     
     
